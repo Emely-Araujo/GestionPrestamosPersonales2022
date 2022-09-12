@@ -1,24 +1,32 @@
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 public class Personas
 {
     [Key]
     public int PersonaId { get; set; }
 
-    [Required(ErrorMessage = "Favor de Ingresar el nombre")]
+    [Required(ErrorMessage = "Favor de Ingresar el nombre.")]
     public string? Nombre { get; set; }
 
+   
+    [RegularExpression(@"^\d{3}-\d{3}-\d{4}$")]
+    [Phone(ErrorMessage = "Favor de ingresar correctamente el numero Telefonico.")]
     public string? Telefono { get; set; }
 
-    [Required(ErrorMessage = "Favor de Ingresar El Celular")]
+    [RegularExpression(@"^\d{3}-\d{3}-\d{4}$")]
+    [Phone(ErrorMessage = "Favor de ingresar correctamente el numero celular.")]
     public string? Celular { get; set; }
 
+    [Remote(action: "VerifyEmail", controller: "Users")]
+    [EmailAddress(ErrorMessage ="Ingrese correctamente el Email.")]
     public string? Email { get; set; }
 
-    [Required(ErrorMessage = "Favor de Ingresar la direccion")]
+    [Required(ErrorMessage = "Favor de Ingresar la direccion.")]
     public string? Direccion { get; set; }
 
-    [Required(ErrorMessage = "Favor de Ingresar su fecha de nacimiento")]
-    public string? FechaNacimiento { get; set; }
+    [Required(ErrorMessage = "Favor de Ingresar su fecha de nacimiento.")]
+    public DateTime? FechaNacimiento { get; set; }
 
 }

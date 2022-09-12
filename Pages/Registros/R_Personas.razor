@@ -63,7 +63,7 @@
             @*Fecha de nacimiento*@
             <div class="form-group">
                 <label>Fecha de nacimiento</label>
-                <InputText @bind-Value="persona.FechaNacimiento" class="form-control" />
+                <InputDate @bind-Value="persona.FechaNacimiento" class="form-control" />
                 <ValidationMessage For="@(() => persona.FechaNacimiento)" />
             </div>
             <h1>
