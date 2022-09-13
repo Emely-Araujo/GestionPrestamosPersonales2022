@@ -29,4 +29,6 @@ public class Personas
     [Required(ErrorMessage = "Favor de Ingresar su fecha de nacimiento.")]
     public DateTime? FechaNacimiento { get; set; }
 
+    public int OcupacionId { get; set; }
+
 }

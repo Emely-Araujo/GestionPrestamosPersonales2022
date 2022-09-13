@@ -2,6 +2,7 @@
 @page "/personas/{PersonasId:int}"
 
 @inject PersonasBLL PersonasBLL
+@inject OcupacionesBLL OcupacionesBLL
 @inject NotificationService notificationService
 
 
@@ -66,6 +67,18 @@
                 <InputDate @bind-Value="persona.FechaNacimiento" class="form-control" />
                 <ValidationMessage For="@(() => persona.FechaNacimiento)" />
             </div>
+            @*OcupacionId*@
+            <div class="form-group">
+                <label>OcupacionId</label>
+                <InputSelect class="form-select" @bind-Value="persona.OcupacionId">
+                    <option value="0" disabled> Seleccione </option>
+                    @foreach (var persona in listaOcupaciones)
+                    {
+                        <option value="@persona.OcupacionId"> @persona.OcupacionId</option>
+                    }
+                </InputSelect>
+                <ValidationMessage For="@(() => persona.OcupacionId)" class="form-control" />
+            </div>
             <h1>
                 <span class="text-danger">@mensaje</span>
             </h1>
@@ -86,6 +99,10 @@
     [Parameter]
     public int PersonasId { get; set; }
 
+    public int OcupacionId { get; set; }
+
+    public List<Ocupaciones> listaOcupaciones { get; set; } = new List<Ocupaciones>();
+
     public Personas persona { get; set; } = new Personas();
 
     public String mensaje { get; set; } = "";
@@ -101,6 +118,7 @@
 
     protected override void OnInitialized()
     {
+        listaOcupaciones = OcupacionesBLL.GetList(o => true);
         if (PersonasId > 0)
         {
 
@@ -119,7 +137,7 @@
             return;
         }
 
-        guardo = PersonasBLL.Guardar(persona);
+        guardo = PersonasBLL.Guardar(this.persona);
 
         if (guardo)
         {
